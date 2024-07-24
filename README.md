@@ -1,5 +1,9 @@
 # OrbitDB Browser Example
 
+The single most requested use case by developers looking to implement OrbitDB is; How do I replicate a database across browser peers.
+
+This project aims to answer this request with a basic browser-to-browser replication example. Additionally, this project will aim to demystify some of the networking terms used by LibP2P.
+
 ## Overview
 
 We will launch two browser peers, A and B along with a 3rd "relay" peer. The relay will be queried by peer A to determine A's WebRTC addresses.
@@ -19,7 +23,7 @@ You will require git and npm to set up this project and run the examples.
 Clone this project and install required packages.
 
 ```
-git clone https://github.com/
+git clone https://github.com/haydenyoung/orbitdb-browser-example.git
 cd orbitdb-browser-example
 npm i
 ```

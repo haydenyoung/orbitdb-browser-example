@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OrbitDB Browser App</title>
+  </head>
+  <body>
+    <header><h1>OrbitDB - Create & Fetch a DB</h1></header>
+    <main id="app">
+      <section>
+        <h2>Get started...</h2>
+        <summary>Peer Details</summary>
+        <div id="peerId"></div>
+        <button id="discover">Discover</button>
+        <div id="peerAddresses"></div>
+      </section>        
+        
+      <section>
+        <h2>Create a db...</h2>        
+        <button id="createDB">Create</button>
+        <div id="db" name="db"></div>
+      </section>
+      
+      <section>
+        <h2>Fetch a db...</h2>
+        <div>
+            <label>LibP2P Address</label><br/>
+            <input type="text" id="libp2pAddress" name="libp2pAddress" size="100"/>
+        </div>
+        <div>
+            <label>Database Address</label><br/>
+            <input type="text" id="dbAddress" name="dbAddress" size="100"/>
+        </div>
+        <button id="fetchDB">Fetch</button>
+        <div id="fetched"></div>
+        <div id="records"></div>
+      </section>
+    </main>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

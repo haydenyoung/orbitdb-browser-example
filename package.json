@@ -1,0 +1,21 @@
+{
+  "name": "orbitdb-browser-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.3.4"
+  },
+  "dependencies": {
+    "@chainsafe/libp2p-gossipsub": "^13.1.0",
+    "@orbitdb/core": "^2.2.0",
+    "events": "^3.3.0",
+    "helia": "^4.2.4",
+    "libp2p": "^1.8.1"
+  }
+}

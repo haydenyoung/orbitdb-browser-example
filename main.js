@@ -12,11 +12,21 @@ import { createOrbitDB } from '@orbitdb/core'
 import { multiaddr } from '@multiformats/multiaddr'
 import { WebRTC } from '@multiformats/multiaddr-matcher'
 import './style.css'
+import { bootstrap } from '@libp2p/bootstrap'
 
 // A lot of this configuration is covered in detail in 
 // https://docs.libp2p.io/guides/getting-started/webrtc/.
 
 const options = {
+    peerDiscovery: [
+        bootstrap({
+          list: [
+            // a list of bootstrap peer multiaddrs to connect to on node startup
+            '/ip4/127.0.0.1/tcp/12345/ws/p2p/12D3KooWAJjbRkp8FPF5MKgMU53aUTxWkqvDrs4zc1VMbwRwfsbE',
+            '/ip4/127.0.0.1/tcp/12346/ws/p2p/12D3KooWKjW25bXkyCojszns4Z8W3dyE3WPafrQwNkeMVqAgj4Np'
+          ]
+        })
+    ],
   addresses: {
     // Listen for inbound webRTC connections.
     listen: ['/webrtc']
@@ -43,14 +53,16 @@ const options = {
     // https://docs.libp2p.io/guides/getting-started/webrtc/.
     webRTC(),
     // Establishes the initial connection between peers via a relay.
-    // Required by WebRTC.
+    // Required by WebRTC. You can learn more about circuit relays at 
+    // https://docs.libp2p.io/guides/getting-started/webrtc/#step-5-make-the-browser-dialable-with-circuit-relay
     circuitRelayTransport({
       // Find this number of network relays. Setting this to 1 will allow us to
       // reserve a public address with the relay that we will explicitly dial
       // when clikcing the "Discover" button.
       // If using DHT for relay discovery, this value can be increased to 
       // find more relay peers.
-      discoverRelays: 1
+      discoverRelays: 2,
+      reservationConcurrency: 1
     })
   ],
   connectionEncryption: [
@@ -98,7 +110,7 @@ const init = async () => {
 const discover = async () => {
   const relayId = '12D3KooWAJjbRkp8FPF5MKgMU53aUTxWkqvDrs4zc1VMbwRwfsbE'
 
-  await orbitdb.ipfs.libp2p.dial(multiaddr(`/ip4/127.0.0.1/tcp/12345/ws/p2p/${relayId}`))
+  // await orbitdb.ipfs.libp2p.dial(multiaddr(`/ip4/127.0.0.1/tcp/12345/ws/p2p/${relayId}`))
 
   let addresses = []
 

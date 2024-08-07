@@ -18,15 +18,6 @@ import { bootstrap } from '@libp2p/bootstrap'
 // https://docs.libp2p.io/guides/getting-started/webrtc/.
 
 const options = {
-    peerDiscovery: [
-        bootstrap({
-          list: [
-            // a list of bootstrap peer multiaddrs to connect to on node startup
-            '/ip4/127.0.0.1/tcp/12345/ws/p2p/12D3KooWAJjbRkp8FPF5MKgMU53aUTxWkqvDrs4zc1VMbwRwfsbE',
-            '/ip4/127.0.0.1/tcp/12346/ws/p2p/12D3KooWKjW25bXkyCojszns4Z8W3dyE3WPafrQwNkeMVqAgj4Np'
-          ]
-        })
-    ],
   addresses: {
     // Listen for inbound webRTC connections.
     listen: ['/webrtc']
@@ -61,8 +52,7 @@ const options = {
       // when clikcing the "Discover" button.
       // If using DHT for relay discovery, this value can be increased to 
       // find more relay peers.
-      discoverRelays: 2,
-      reservationConcurrency: 1
+      discoverRelays: 1
     })
   ],
   connectionEncryption: [
@@ -110,7 +100,7 @@ const init = async () => {
 const discover = async () => {
   const relayId = '12D3KooWAJjbRkp8FPF5MKgMU53aUTxWkqvDrs4zc1VMbwRwfsbE'
 
-  // await orbitdb.ipfs.libp2p.dial(multiaddr(`/ip4/127.0.0.1/tcp/12345/ws/p2p/${relayId}`))
+  await orbitdb.ipfs.libp2p.dial(multiaddr(`/ip4/127.0.0.1/tcp/12345/ws/p2p/${relayId}`))
 
   let addresses = []
 

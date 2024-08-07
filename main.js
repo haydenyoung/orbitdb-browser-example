@@ -39,12 +39,17 @@ const options = {
       filter: all
     }),
     // webRTC transport will be used for browser-to-browser communication.
-    // TODO: Expand?
+    // You can learn more about the intricacies of webrtc here 
+    // https://docs.libp2p.io/guides/getting-started/webrtc/.
     webRTC(),
     // Establishes the initial connection between peers via a relay.
     // Required by WebRTC.
     circuitRelayTransport({
-      // TODO: Expand on discoverRelays
+      // Find this number of network relays. Setting this to 1 will allow us to
+      // reserve a public address with the relay that we will explicitly dial
+      // when clikcing the "Discover" button.
+      // If using DHT for relay discovery, this value can be increased to 
+      // find more relay peers.
       discoverRelays: 1
     })
   ],

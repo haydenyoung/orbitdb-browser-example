@@ -1,8 +1,8 @@
 # OrbitDB Browser Example
 
-The single most requested use case by developers looking to implement OrbitDB is; How do I replicate a database across browser peers.
+The single most requested use case by developers looking to implement OrbitDB is, "How do I replicate a database across browser peers".
 
-This project aims to answer this request with a basic browser-to-browser replication example. Additionally, this project will aim to demystify some of the networking terms used by LibP2P.
+This project aims to answer this with a basic browser-to-browser replication example. Additionally, this project will aim to demystify some of the networking terms used by LibP2P.
 
 ## Overview
 
@@ -94,7 +94,7 @@ The project is using Vite to build the web application. Once ready, you should s
 
 ### Launching browser A, discovering A's webrtc address, and creating a database
 
-Open up a browser window. Navigate to http://localhost:5174/. You will be presented with a basic user interface with various actions which you can enable.
+Open up a browser window. Navigate to http://localhost:5173/. You will be presented with a basic user interface with various actions which you can enable.
 
 When the web application is loaded, it will immediately set up an instance of OrbitDB. However, you will have to query the relay to determine the addresses the browser peer can be contacted on.
 
@@ -106,11 +106,11 @@ Now, click on "Create". A new local database called "my-db" will be created and 
 
 ### Launching browser B and replicating the database
 
-Open a new browser window on the same machine, preferably using a different browser application (for example, if you used Firefox for browser A, use Brave or Chromium for browser B). Navigate to http://localhost:5174/.
+Open a new browser window on the same machine, preferably using a different browser application (for example, if you used Firefox for browser A, use Brave or Chromium for browser B). Navigate to http://localhost:5173/.
 
 We want to replicate the database created on browser A on browser B.
 
-Go back to browser A and copy the first webrtc address. It will probably look something like:
+Go back to browser A and copy the first webrtc address. It will look something like:
 
 `/ip4/127.0.0.1/tcp/12345/ws/p2p/12D3KooWAJjbRkp8FPF5MKgMU53aUTxWkqvDrs4zc1VMbwRwfsbE/p2p-circuit/webrtc/p2p/12D3KooWNf2oFpL9AWRsnr38XyYZ8yfS5DuKB1Zij6faduALWoz6`
 
@@ -136,7 +136,7 @@ A few takeaways from this example:
 
 - There is nothing keeping the connection alive. If it drops, you will need to detect the drop and manually re-establish the connection,
 
-- In this example, you had to manually connect browser B to browser A by providing browser A's "discovered" address. There may be more elegant ways of publishing a peer's address to another peer such as using [LibP2P's Pubsub Peer Discovery](https://github.com/libp2p/js-libp2p-pubsub-peer-discovery/),
+- In this example, you had to manually connect browser B to browser A by providing browser A's "discovered" address. There may be more elegant ways of publishing a peer's address for other peers to discover such as using [LibP2P's Pubsub Peer Discovery](https://github.com/libp2p/js-libp2p-pubsub-peer-discovery/),
 
 - Note that you only need browser A's "discovered" address to connect from browser B. We don't need to "discover" browser B's addresses,
 

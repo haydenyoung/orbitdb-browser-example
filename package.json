@@ -12,10 +12,9 @@
     "vite": "^5.3.4"
   },
   "dependencies": {
-    "@chainsafe/libp2p-gossipsub": "^13.1.0",
-    "@orbitdb/core": "^2.2.0",
+    "@chainsafe/libp2p-gossipsub": "^14.1.0",
+    "@orbitdb/core": "^2.4.3",
     "events": "^3.3.0",
-    "helia": "^4.2.4",
-    "libp2p": "^1.8.1"
+    "helia": "^5.1.0"
   }
 }

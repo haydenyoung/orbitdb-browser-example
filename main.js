@@ -20,7 +20,7 @@ import { bootstrap } from '@libp2p/bootstrap'
 const options = {
   addresses: {
     // Listen for inbound webRTC connections.
-    listen: ['/webrtc']
+    listen: ['/webrtc', '/p2p-circuit']
   },
   // transports are used to move data over the network. You can learn more 
   // about Libp2p transports at 
@@ -46,16 +46,9 @@ const options = {
     // Establishes the initial connection between peers via a relay.
     // Required by WebRTC. You can learn more about circuit relays at 
     // https://docs.libp2p.io/guides/getting-started/webrtc/#step-5-make-the-browser-dialable-with-circuit-relay
-    circuitRelayTransport({
-      // Find this number of network relays. Setting this to 1 will allow us to
-      // reserve a public address with the relay that we will explicitly dial
-      // when clikcing the "Discover" button.
-      // If using DHT for relay discovery, this value can be increased to 
-      // find more relay peers.
-      discoverRelays: 1
-    })
+    circuitRelayTransport()
   ],
-  connectionEncryption: [
+  connectionEncrypters: [
     noise()
   ],
   streamMuxers: [
@@ -90,9 +83,11 @@ const waitFor = async (valueA, toBeValueB, pollInterval = 100) => {
 }
 
 const init = async () => {
+  const id = "orbitdb-browser-example"
+      
   const libp2p = await createLibp2p({ ...options })
   const ipfs = await createHelia({ libp2p })
-  orbitdb = await createOrbitDB({ ipfs })
+  orbitdb = await createOrbitDB({ id, ipfs })
   
   document.getElementById('peerId').innerText = orbitdb.ipfs.libp2p.peerId.toString()
 }
@@ -105,6 +100,7 @@ const discover = async () => {
   let addresses = []
 
   await waitFor(() => {
+      console.log(orbitdb.ipfs.libp2p.getMultiaddrs())
     addresses = orbitdb.ipfs.libp2p.getMultiaddrs().filter(ma => WebRTC.matches(ma))
     return addresses.length > 0
   }, () => true)
@@ -128,9 +124,10 @@ document.getElementById('discover').addEventListener('click', async () => {
 })
 
 document.getElementById('createDB').addEventListener('click', async () => {
-  const db = await orbitdb.open('my-db')
-  await db.add('hello world')
-  document.getElementById('db').innerText += db.address
+  const db = await orbitdb.open('my-db', { type: "documents" })
+  await db.put({ _id: 'hello world', value: 'hello world' })
+  console.log(await db.all())
+  document.getElementById('db').innerText = db.address
 })
 
 document.getElementById('fetchDB').addEventListener('click', async () => {

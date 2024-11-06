@@ -14,6 +14,7 @@
   "dependencies": {
     "@chainsafe/libp2p-gossipsub": "^14.1.0",
     "@orbitdb/core": "^2.4.3",
+    "blockstore-level": "^2.0.1",
     "events": "^3.3.0",
     "helia": "^5.1.0"
   }

@@ -13,6 +13,7 @@ import { multiaddr } from '@multiformats/multiaddr'
 import { WebRTC } from '@multiformats/multiaddr-matcher'
 import './style.css'
 import { bootstrap } from '@libp2p/bootstrap'
+import { LevelBlockstore } from 'blockstore-level'
 
 // A lot of this configuration is covered in detail in 
 // https://docs.libp2p.io/guides/getting-started/webrtc/.
@@ -84,9 +85,11 @@ const waitFor = async (valueA, toBeValueB, pollInterval = 100) => {
 
 const init = async () => {
   const id = "orbitdb-browser-example"
-      
+  
+  const blockstore = new LevelBlockstore(`/ipfs/${id}`)
+
   const libp2p = await createLibp2p({ ...options })
-  const ipfs = await createHelia({ libp2p })
+  const ipfs = await createHelia({ libp2p, blockstore })
   orbitdb = await createOrbitDB({ id, ipfs })
   
   document.getElementById('peerId').innerText = orbitdb.ipfs.libp2p.peerId.toString()
